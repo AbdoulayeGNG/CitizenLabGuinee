@@ -1,11 +1,11 @@
-# 🇸🇳 CitizenLab Sénégal
+# 🇬🇳 CitizenLab Guinée
 
-<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="CitizenLab Sénégal Lighthouse Score" width="100" height="358">
+<img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right" alt="CitizenLab Guinée Lighthouse Score" width="100" height="358">
 
-🌟 _Plateforme de participation citoyenne pour le Sénégal_. 🌟
+🌟 Plateforme de participation citoyenne pour la Guinée. 🌟
 
-**CitizenLab Sénégal** est une fabrique citoyenne développée avec **[Astro 4.0](https://astro.build/) + [Tailwind CSS](https://tailwindcss.com/)**. Le projet vise à appuyer, accompagner et outiller les acteurs de la société civile sénégalaise par la formation, le développement d'outils et l'accompagnement à l'innovation et à la co-création.
+CitizenLab Guinée est une fabrique citoyenne numérique destinée à renforcer l'engagement civique en Guinée.
+La plateforme vise à informer, former, accompagner et outiller les acteurs de la société civile guinéenne à travers la diffusion d’informations fiables, le développement d’outils numériques, l’innovation et la co-création.
 
 - ✅ **Production-ready** scores in **PageSpeed Insights** reports.
 - ✅ Integration with **Tailwind CSS** supporting **Dark mode** and **_RTL_**.
