@@ -1,6 +1,6 @@
 export async function navQuery() {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
     console.log('Fetching menu from:', apiUrl);
     
     // Créer un AbortController pour gérer le timeout
@@ -381,7 +381,7 @@ export async function findLatestPostsAPI() {
       {
         date: new Date(Date.now() - 86400000).toISOString(),
         permalink: '/blog/participation-citoyenne',
-        title: 'La Participation Citoyenne au Sénégal',
+        title: 'La Participation Citoyenne en Guinée',
         excerpt: 'Comment encourager et développer la participation citoyenne dans notre pays...',
         featuredImage: {
           node: {
@@ -482,8 +482,8 @@ export async function newsPagePostsQuery() {
       {
         date: new Date().toISOString(),
         permalink: '/blog/actualites-citizenlab',
-        title: 'Actualités CitizenLab Sénégal',
-        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Sénégal...',
+        title: 'Actualités CitizenLab Guinée',
+        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Guinée...',
         featuredImage: {
           node: {
             mediaItemUrl: '/assets/images/formation1.jpg',
