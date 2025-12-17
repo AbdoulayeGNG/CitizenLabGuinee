@@ -1,8 +1,9 @@
-🇬🇳 CitizenLab Guinée
+# 🇬🇳 CitizenLab Guinée
 
 <img src="https://raw.githubusercontent.com/onwidget/.github/main/resources/astrowind/lighthouse-score.png" align="right" alt="CitizenLab Guinée Lighthouse Score" width="100" height="358">
 
 🌟 Plateforme de participation citoyenne pour la Guinée. 🌟
+
 CitizenLab Guinée est une fabrique citoyenne numérique destinée à renforcer l'engagement civique en Guinée.
 La plateforme vise à informer, former, accompagner et outiller les acteurs de la société civile guinéenne à travers la diffusion d’informations fiables, le développement d’outils numériques, l’innovation et la co-création.
 
