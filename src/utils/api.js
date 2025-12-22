@@ -82,7 +82,7 @@ function getDefaultMenu() {
 
 export async function getNodeByURI(uri) {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
     
     // Créer un AbortController pour gérer le timeout
     const controller = new AbortController();
@@ -202,7 +202,7 @@ export async function getNodeByURI(uri) {
 }
 export async function getAllUris() {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
     
     let allUris = [];
     let afterCursor = null;
@@ -304,7 +304,7 @@ export async function getAllUris() {
 
 
 export async function findLatestPostsAPI() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
 
   try {
     // Créer un AbortController pour gérer le timeout
@@ -364,8 +364,8 @@ export async function findLatestPostsAPI() {
       {
         date: new Date().toISOString(),
         permalink: '/blog/actualites-citizenlab',
-        title: 'Actualités CitizenLab Sénégal',
-        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Sénégal...',
+        title: 'Actualités CitizenLab Guinée',
+        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Guinée...',
         featuredImage: {
           node: {
             mediaItemUrl: '/assets/images/formation1.jpg',
@@ -399,7 +399,7 @@ export async function findLatestPostsAPI() {
   }
 }
 export async function newsPagePostsQuery() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
 
   try {
     let allPosts = [];
@@ -501,7 +501,7 @@ export async function newsPagePostsQuery() {
 }
 
 export async function getAllMembers() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/senegal/graphql';
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
   
   if (!apiUrl) {
     console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
