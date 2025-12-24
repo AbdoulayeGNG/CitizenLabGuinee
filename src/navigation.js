@@ -85,11 +85,11 @@ export const footerData = {
       title: "Nous Contacter",
       links: [
         {
-          text: "citizenlabsenegal@africtivistes.org",
-          href: "mailto:citizenlabsenegal@africtivistes.org ",
+          text: "citizenlabguinee@africtivistes.org",
+          href: "mailto:citizenlabguinee@africtivistes.org ",
         },
-        { text: "+221 77 777 77 77", href: "tel:+221777777777" },
-        { text: " Dakar, Sénégal ", href: "#" },
+        { text: "+224 611 111 111", href: "tel:+224611111111" },
+        { text: " Labé, Conakry, Guinée ", href: "#" },
       ],
     },
   ],
@@ -101,22 +101,22 @@ export const footerData = {
     //{ text: 'Privacy Policy', href: getPermalink('/privacy') },
   ],
   socialLinks: [
-    { icon: "tabler:brand-x", href: "https://twitter.com/SenegalCitizenlab" },
+    { icon: "tabler:brand-x", href: "https://x.com/citizenlab_GN/" },
     {
       icon: "tabler:brand-instagram",
-      href: "https://www.instagram.com/citizenlabsenegal/",
+      href: "https://www.instagram.com/africtivistescitizenlabguinee/",
     },
     {
       icon: "tabler:brand-facebook",
-      href: "https://www.facebook.com/profile.php?id=61553614994311",
+      href: "https://www.facebook.com/AfricTivistesCitizenLabGuinnee/",
     },
     {
       icon: "tabler:brand-linkedin",
-      href: "https://www.linkedin.com/company/citizen-lab-senegal/about/",
+      href: "https://www.linkedin.com/company/aclabguinee?trk=public_post_follow-view-profile",
     },
     {
       icon: "tabler:brand-github",
-      href: "https://github.com/AfricTivistes/citizenlabsenegal",
+      href: "https://github.com/AfricTivistes/citizenlabguinee",
     },
   ],
   footNote: `
