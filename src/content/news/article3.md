@@ -1,5 +1,5 @@
 ---
-title: "L’innovation citoyenne : un levier pour transformer le Sénégal en 2025"
+title: "L’innovation citoyenne : un levier pour transformer la Guinée en 2025"
 date: "2025-11-15"
 category: "Innovation"
 image: "/src/assets/images/news3.jpg"
@@ -25,7 +25,7 @@ Plusieurs outils émergent :
 
 Ces solutions modernisent la relation entre citoyens et institutions.
 
-## 3. Le rôle stratégique de CitizenLab Sénégal
+## 3. Le rôle stratégique de CitizenLab Guinée
 
 CitizenLab agit comme un hub d’innovation :
 - en formant des jeunes aux Civic Tech,
@@ -35,4 +35,4 @@ CitizenLab agit comme un hub d’innovation :
 
 ## Conclusion
 
-L’innovation citoyenne représente un moteur essentiel de transformation sociale. En renforçant les capacités techniques et civiques des jeunes, CitizenLab Sénégal contribue activement à construire un Sénégal plus ouvert, connecté et participatif.
+L’innovation citoyenne représente un moteur essentiel de transformation sociale. En renforçant les capacités techniques et civiques des jeunes, CitizenLab Guinée contribue activement à construire une Guinée plus ouverte, connectée et participative.

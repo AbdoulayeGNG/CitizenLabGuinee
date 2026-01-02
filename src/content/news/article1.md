@@ -2,7 +2,7 @@
 title: "Comment renforcer la participation citoyenne grâce au numérique en 2025"
 date: "2025-11-10"
 category: "Civic Tech"
-image: "/src/assets/images/news1.jpg"
+image: "/src/assets/images/first.jpeg"
 ---
 
 La transformation numérique ouvre de nouvelles opportunités pour rapprocher les citoyens des institutions. En 2025, les plateformes numériques, les réseaux sociaux et les outils de Civic Tech deviennent essentiels pour encourager l'engagement, faciliter le dialogue et renforcer la démocratie participative.
@@ -25,7 +25,7 @@ Les Civic Tech permettent aujourd’hui :
 
 Ces outils renforcent la transparence et l’implication des citoyens.
 
-## 3. Le rôle des organisations comme CitizenLab Sénégal
+## 3. Le rôle des organisations comme CitizenLab Guinée
 
 CitizenLab joue un rôle clé dans l’accompagnement, la formation et la co-création avec les jeunes.  
 L’objectif : rendre la participation citoyenne **accessible, simple et inclusive**.

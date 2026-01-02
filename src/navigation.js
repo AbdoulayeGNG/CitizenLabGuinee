@@ -15,33 +15,22 @@ export const headerData = {
     {
       text: "Projets & Réalisations",
       links: [
-        { text: "Projets en cours", href: "#" },
-        { text: "Projets réalisés", href: "#" },
+        { text: "Projets en cours", href: getPermalink("/projets") },
+        { text: "Projets réalisés", href: getPermalink("/realisations") },
       ],
     },
     {
       text: "Médias & Actualités",
       links: [
         { text: "Actualités", href: getPermalink("/news") },
-        { text: "Campagnes", href: getPermalink("campagnes", "category") },
-        { text: "Blog / Opinions", href: getPermalink("blog", "category") },
-        { text: "Podcasts", href: getPermalink("podcast", "category") },
-        { text: "Vidéos", href: getPermalink("videos", "category") },
+        { text: "Podcasts", href: getPermalink("/podcasts") },
+        { text: "Vidéos", href: getPermalink("videos") },
       ],
     },
     {
       text: "Formations & Ressources",
-      links: [
-        { text: "Bootcamps / Ateliers", href: getPermalink("/bootcamp") },
-        {
-          text: "Modules en ligne",
-          href: getPermalink("campagnes", "category"),
-        },
-        {
-          text: "Ressources pédagogiques",
-          href: getPermalink("blog", "category"),
-        },
-      ],
+       href: getPermalink("/formations/bootcamps-ateliers"),
+      //href: getPermalink("/formations"),
     },
     // {
     //   text: "Participez / Implications",

@@ -1,57 +1,61 @@
 export async function navQuery() {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
-    console.log('Fetching menu from:', apiUrl);
-    
+    const apiUrl =
+      import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+      "https://citizenlab.africtivistes.org/guinee/graphql";
+    console.log("Fetching menu from:", apiUrl);
+
     // Créer un AbortController pour gérer le timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
-    
+
     const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `{
-                menuItems(where: {location: HEADER_MENU}) {
-                  nodes {
-                    text: label
-                    parentId
-                    href: uri
-                    childItems {
-                      nodes {
-                        text: label
-                        href: uri
-                      }
+              menuItems(where: {location: HEADER_MENU}) {
+                nodes {
+                  text: label
+                  parentId
+                  href: uri
+                  childItems {
+                    nodes {
+                      text: label
+                      href: uri
                     }
                   }
                 }
               }
-              `
+            }
+            `,
       }),
-      signal: controller.signal
+      signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const json = await response.json();
-    console.log('API Response:', json);
+    console.log("API Response:", json);
     const { data } = json;
-    console.log('Menu Data:', data);
-    
+    console.log("Menu Data:", data);
+
     if (!data || !data.menuItems || !Array.isArray(data.menuItems.nodes)) {
-      console.error('Menu data is missing or malformed:', data);
+      console.error("Menu data is missing or malformed:", data);
       return getDefaultMenu();
     }
-    
-    const menuItems = data.menuItems.nodes.filter(node => node.parentId === null);
-    console.log('Filtered Menu Items:', menuItems);
+
+    const menuItems = data.menuItems.nodes.filter(
+      (node) => node.parentId === null
+    );
+    console.log("Filtered Menu Items:", menuItems);
     return menuItems;
   } catch (error) {
-    console.error('Error fetching menu:', error.message);
+    console.error("Error fetching menu:", error.message);
     return getDefaultMenu();
   }
 }
@@ -60,118 +64,119 @@ export async function navQuery() {
 function getDefaultMenu() {
   return [
     {
-      text: 'Accueil',
+      text: "Accueil",
       parentId: null,
-      href: '/',
-      childItems: { nodes: [] }
+      href: "/",
+      childItems: { nodes: [] },
     },
     {
-      text: 'FAQ',
+      text: "FAQ",
       parentId: null,
-      href: '/faq',
-      childItems: { nodes: [] }
+      href: "/faq",
+      childItems: { nodes: [] },
     },
     {
-      text: 'Contact',
+      text: "Contact",
       parentId: null,
-      href: '/contact',
-      childItems: { nodes: [] }
-    }
+      href: "/contact",
+      childItems: { nodes: [] },
+    },
   ];
 }
 
 export async function getNodeByURI(uri) {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
-    
+    const apiUrl =
+      import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+      "https://citizenlab.africtivistes.org/guinee/graphql";
+
     // Créer un AbortController pour gérer le timeout
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
-    
+
     const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `query GetNodeByURI($uri: String!) {
-                    nodeByUri(uri: $uri) {
-                      __typename
-                      isContentNode
-                      isTermNode
-                      ... on Post {
-                        id
-                        title
-                        date
-                        permalink: uri
-                        excerpt
-                        content
-                        categories {
-                          nodes {
-                            name
-                            permalink: uri
-                            slug
-                          }
+                  nodeByUri(uri: $uri) {
+                    __typename
+                    isContentNode
+                    isTermNode
+                    ... on Post {
+                      id
+                      title
+                      date
+                      permalink: uri
+                      excerpt
+                      content
+                      categories {
+                        nodes {
+                          name
+                          permalink: uri
+                          slug
                         }
-                        terms {
-                          nodes {
-                            name
-                            slug
-                            permalink:uri
-                          }
+                      }
+                      terms {
+                        nodes {
+                          name
+                          slug
+                          permalink:uri
                         }
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
+                      }
+                      featuredImage {
+                        node {
+                          srcSet
+                          sourceUrl
+                          altText
+                          mediaDetails {
+                            height
+                            width
                           }
                         }
                       }
-                      ... on Page {
-                        id
-                        title
-                        permalink: uri
-                        date
-                        content
-                        featuredImage {
-                          node {
-                            srcSet
-                            sourceUrl
-                            altText
-                            mediaDetails {
-                              height
-                              width
-                            }
+                    }
+                    ... on Page {
+                      id
+                      title
+                      permalink: uri
+                      date
+                      content
+                      featuredImage {
+                        node {
+                          srcSet
+                          sourceUrl
+                          altText
+                          mediaDetails {
+                            height
+                            width
                           }
                         }
                       }
-                      ... on Category {
-                        id
-                        name
-                        posts {
-                          nodes {
-                            date
-                            title
-                            excerpt
-                            permalink: uri
-                            categories {
-                              nodes {
-                                name
-                                permalink: uri
-                              }
+                    }
+                    ... on Category {
+                      id
+                      name
+                      posts {
+                        nodes {
+                          date
+                          title
+                          excerpt
+                          permalink: uri
+                          categories {
+                            nodes {
+                              name
+                              permalink: uri
                             }
-                            featuredImage {
-                              node {
-                                srcSet
-                                sourceUrl
-                                altText
-                                mediaDetails {
-                                  height
-                                  width
-                                }
+                          }
+                          featuredImage {
+                            node {
+                              srcSet
+                              sourceUrl
+                              altText
+                              mediaDetails {
+                                height
+                                width
                               }
                             }
                           }
@@ -179,20 +184,21 @@ export async function getNodeByURI(uri) {
                       }
                     }
                   }
-                `,
+                }
+              `,
         variables: {
-          uri: uri
-        }
+          uri: uri,
+        },
       }),
-      signal: controller.signal
+      signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     const { data } = await response.json();
     return data;
   } catch (error) {
@@ -202,8 +208,10 @@ export async function getNodeByURI(uri) {
 }
 export async function getAllUris() {
   try {
-    const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
-    
+    const apiUrl =
+      import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+      "https://citizenlab.africtivistes.org/guinee/graphql";
+
     let allUris = [];
     let afterCursor = null;
     let hasNextPage = true;
@@ -215,34 +223,34 @@ export async function getAllUris() {
         // Créer un AbortController pour gérer le timeout
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 secondes de timeout
-        
+
         const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             query: `query GetAllUris($after: String) {
-              posts(first: 50, after: $after) {
-                pageInfo {
-                  hasNextPage
-                  endCursor
-                }
-                nodes {
-                  uri
-                }
-              }
-              pages {
-                nodes {
-                  uri
-                }
-              }
-            }`,
-            variables: { after: afterCursor }
+          posts(first: 50, after: $after) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            nodes {
+              uri
+            }
+          }
+          pages {
+            nodes {
+              uri
+            }
+          }
+        }`,
+            variables: { after: afterCursor },
           }),
-          signal: controller.signal
+          signal: controller.signal,
         });
-        
+
         clearTimeout(timeoutId);
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -258,16 +266,19 @@ export async function getAllUris() {
         } else {
           hasNextPage = false;
         }
-        
+
         // Réinitialiser le compteur de tentatives en cas de succès
         attempt = 0;
       } catch (error) {
-        console.error(`Error fetching URIs (attempt ${attempt + 1}/${maxAttempts}):`, error.message);
+        console.error(
+          `Error fetching URIs (attempt ${attempt + 1}/${maxAttempts}):`,
+          error.message
+        );
         attempt++;
-        
+
         // Attendre avant de réessayer
         if (attempt < maxAttempts) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          await new Promise((resolve) => setTimeout(resolve, 1000 * attempt));
         }
       }
     }
@@ -275,36 +286,31 @@ export async function getAllUris() {
     // Si nous avons des URIs, les nettoyer et les retourner
     if (allUris.length > 0) {
       return allUris
-        .filter(node => node.uri !== null)
-        .map(node => {
+        .filter((node) => node.uri !== null)
+        .map((node) => {
           let trimmedURI = node.uri.substring(1);
           trimmedURI = trimmedURI.substring(0, trimmedURI.length - 1);
           return {
             params: {
-              uri: decodeURI(trimmedURI)
-            }
+              uri: decodeURI(trimmedURI),
+            },
           };
         });
     }
-    
+
     // Retourner un tableau par défaut si aucune URI n'est trouvée
-    return [
-      { params: { uri: 'faq' } },
-      { params: { uri: 'contact' } }
-    ];
+    return [{ params: { uri: "faq" } }, { params: { uri: "contact" } }];
   } catch (error) {
-    console.error('Error in getAllUris:', error.message);
+    console.error("Error in getAllUris:", error.message);
     // Retourner un tableau par défaut en cas d'erreur
-    return [
-      { params: { uri: 'faq' } },
-      { params: { uri: 'contact' } }
-    ];
+    return [{ params: { uri: "faq" } }, { params: { uri: "contact" } }];
   }
 }
 
-
 export async function findLatestPostsAPI() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
+  const apiUrl =
+    import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+    "https://citizenlab.africtivistes.org/guinee/graphql";
 
   try {
     // Créer un AbortController pour gérer le timeout
@@ -312,8 +318,8 @@ export async function findLatestPostsAPI() {
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 secondes de timeout
 
     const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `{
                     posts(first: 8) {
@@ -344,9 +350,9 @@ export async function findLatestPostsAPI() {
                       }
                     }
                   }
-                `
+                `,
       }),
-      signal: controller.signal
+      signal: controller.signal,
     });
 
     clearTimeout(timeoutId);
@@ -358,48 +364,48 @@ export async function findLatestPostsAPI() {
     const { data } = await response.json();
     return data?.posts?.nodes || [];
   } catch (error) {
-    console.error('Error fetching latest posts:', error.message);
+    console.error("Error fetching latest posts:", error.message);
     // Retourner des données de démonstration en cas d'erreur
     return [
       {
         date: new Date().toISOString(),
-        permalink: '/blog/actualites-citizenlab',
-        title: 'Actualités CitizenLab Guinée',
-        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Guinée...',
+        permalink: "/blog/actualites-citizenlab",
+        title: "Actualités CitizenLab Guinée",
+        excerpt:
+          "Découvrez les dernières actualités et activités de CitizenLab Guinée...",
         featuredImage: {
           node: {
-            mediaItemUrl: '/assets/images/formation1.jpg',
-            altText: 'Formation CitizenLab'
-          }
+            mediaItemUrl: "/assets/images/formation1.jpg",
+            altText: "Formation CitizenLab",
+          },
         },
         categories: {
-          nodes: [
-            { name: 'Actualités', permalink: '/category/actualites' }
-          ]
-        }
+          nodes: [{ name: "Actualités", permalink: "/category/actualites" }],
+        },
       },
       {
         date: new Date(Date.now() - 86400000).toISOString(),
-        permalink: '/blog/participation-citoyenne',
-        title: 'La Participation Citoyenne en Guinée',
-        excerpt: 'Comment encourager et développer la participation citoyenne dans notre pays...',
+        permalink: "/blog/participation-citoyenne",
+        title: "La Participation Citoyenne au Sénégal",
+        excerpt:
+          "Comment encourager et développer la participation citoyenne dans notre pays...",
         featuredImage: {
           node: {
-            mediaItemUrl: '/assets/images/hero.png',
-            altText: 'Participation citoyenne'
-          }
+            mediaItemUrl: "/assets/images/hero.png",
+            altText: "Participation citoyenne",
+          },
         },
         categories: {
-          nodes: [
-            { name: 'Démocratie', permalink: '/category/democratie' }
-          ]
-        }
-      }
+          nodes: [{ name: "Démocratie", permalink: "/category/democratie" }],
+        },
+      },
     ];
   }
 }
 export async function newsPagePostsQuery() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
+  const apiUrl =
+    import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+    "https://citizenlab.africtivistes.org/guinee/graphql";
 
   try {
     let allPosts = [];
@@ -412,8 +418,8 @@ export async function newsPagePostsQuery() {
       const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 secondes de timeout
 
       const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: `
             query Posts( $after: String) {
@@ -451,9 +457,9 @@ export async function newsPagePostsQuery() {
               }
             }
           `,
-          variables: { after: afterCursor }
+          variables: { after: afterCursor },
         }),
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
@@ -476,42 +482,45 @@ export async function newsPagePostsQuery() {
 
     return allPosts;
   } catch (error) {
-    console.error('Error fetching news posts:', error.message);
+    console.error("Error fetching news posts:", error.message);
     // Retourner des données de démonstration en cas d'erreur
     return [
       {
         date: new Date().toISOString(),
-        permalink: '/blog/actualites-citizenlab',
-        title: 'Actualités CitizenLab Guinée',
-        excerpt: 'Découvrez les dernières actualités et activités de CitizenLab Guinée...',
+        permalink: "/blog/actualites-citizenlab",
+        title: "Actualités CitizenLab Guinée",
+        excerpt:
+          "Découvrez les dernières actualités et activités de CitizenLab Guinée...",
         featuredImage: {
           node: {
-            mediaItemUrl: '/assets/images/formation1.jpg',
-            altText: 'Formation CitizenLab'
-          }
+            mediaItemUrl: "/assets/images/formation1.jpg",
+            altText: "Formation CitizenLab",
+          },
         },
         categories: {
-          nodes: [
-            { name: 'Actualités', permalink: '/category/actualites' }
-          ]
-        }
-      }
+          nodes: [{ name: "Actualités", permalink: "/category/actualites" }],
+        },
+      },
     ];
   }
 }
 
 export async function getAllMembers() {
-  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL || 'https://citizenlab.africtivistes.org/guinee/graphql';
-  
+  const apiUrl =
+    import.meta.env.PUBLIC_WORDPRESS_API_URL ||
+    "https://citizenlab.africtivistes.org/guinee/graphql";
+
   if (!apiUrl) {
-    console.warn('PUBLIC_WORDPRESS_API_URL is not defined, returning empty array');
+    console.warn(
+      "PUBLIC_WORDPRESS_API_URL is not defined, returning empty array"
+    );
     return [];
   }
-  
+
   try {
     const response = await fetch(apiUrl, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: `{
           equipes (where: {status: PUBLISH}, first: 100) {
@@ -536,22 +545,216 @@ export async function getAllMembers() {
                     }
           }
           }     
-        `
-      })
+        `,
+      }),
     });
-    
+
     const { data } = await response.json();
-    
+
     // Check if data.equipes exists and has nodes
     if (data && data.equipes && data.equipes.nodes) {
       return data.equipes.nodes;
     } else {
-      console.error('No equipes data found in API response');
+      console.error("No equipes data found in API response");
       // Return an empty array as fallback
       return [];
     }
   } catch (error) {
-    console.error('Error fetching team members:', error);
+    console.error("Error fetching team members:", error);
     return [];
   }
+}
+
+export async function getActualitesPosts() {
+  const query = `
+    query GetActualitesPosts {
+      posts(
+        where: {
+          categoryName: "Actualites"
+        }
+        first: 20
+      ) {
+        nodes {
+          id
+          title
+          excerpt
+          date
+          slug
+          content
+          categories {
+            nodes {
+              name
+            }
+          }
+          featuredImage {
+            node {
+              mediaItemUrl
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(import.meta.env.PUBLIC_WP_GRAPHQL_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query }),
+  });
+
+  const json = await res.json();
+  return json.data.posts.nodes;
+}
+
+export async function getPodcastPosts() {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+
+  if (!apiUrl) {
+    console.warn("PUBLIC_WORDPRESS_API_URL is not defined");
+    return [];
+  }
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+        query PodcastPosts {
+          posts(
+            where: { categoryName: "Podcasts" }
+            first: 20
+          ) {
+            nodes {
+              id
+              slug
+              title
+              excerpt
+              content 
+              date
+              permalink: uri
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              } 
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const { data } = await response.json();
+  return data?.posts?.nodes || [];
+}
+
+export async function getLatestActualites(limit = 3) {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+
+  if (!apiUrl) return [];
+
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+        query GetLatestActualites($limit: Int!) {
+          posts(
+            first: $limit
+            where: {
+              categoryName: "Actualites"
+              orderby: { field: DATE, order: DESC }
+            }
+          ) {
+            nodes {
+              title
+              excerpt
+              slug
+              uri
+              date
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: { limit },
+    }),
+  });
+
+  const { data } = await response.json();
+  return data?.posts?.nodes ?? [];
+}
+export function extractAudioUrl(postContent) {
+  if (!postContent) return "";
+
+  // On récupère le bloc <audio> ou <figure class="wp-block-audio">
+  const match = postContent.match(/<audio[\s\S]*?<\/audio>/);
+  if (match) return match[0];
+
+  // Si le thème utilise wp-block-audio
+  const wpAudioMatch = postContent.match(
+    /<figure class="wp-block-audio"[\s\S]*?<\/figure>/
+  );
+  if (wpAudioMatch) return wpAudioMatch[0];
+
+  return "";
+}
+export async function getAllActualites() {
+  const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      query: `
+        query GetAllActualites {
+          posts(
+            where: { categoryName: "Actualites" }
+            first: 100
+          ) {
+            nodes {
+              title
+              excerpt
+              slug
+              uri
+              date
+              categories {
+                nodes {
+                  name
+                  slug
+                }
+              }
+              featuredImage {
+                node {
+                  mediaItemUrl
+                  altText
+                }
+              }
+            }
+          }
+        }
+      `
+    })
+  });
+  const { data } = await response.json();
+  return data?.posts?.nodes ?? [];
 }
