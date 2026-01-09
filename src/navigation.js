@@ -61,7 +61,7 @@ export const footerData = {
     {
       title: "Actualités",
       links: [
-        { text: "Actualités", href: getBlogPermalink("/news") },
+        { text: "Actualités", href: getPermalink("/news")},
         { text: "Blog", href: getPermalink("blog", "category") },
         { text: "Campagnes", href: "#" },
         { text: "Podcasts", href: getPermalink("/podcasts") },
