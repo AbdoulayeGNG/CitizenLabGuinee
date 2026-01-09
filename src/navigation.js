@@ -24,7 +24,7 @@ export const headerData = {
       links: [
         { text: "Actualités", href: getPermalink("/news") },
         { text: "Podcasts", href: getPermalink("/podcasts") },
-        { text: "Vidéos", href: getPermalink("videos") },
+        { text: "Vidéos", href: getPermalink("/videos") },
       ],
     },
     {
@@ -61,12 +61,12 @@ export const footerData = {
     {
       title: "Actualités",
       links: [
-        { text: "Actualités", href: getBlogPermalink() },
+        { text: "Actualités", href: getBlogPermalink("/news") },
         { text: "Blog", href: getPermalink("blog", "category") },
         { text: "Campagnes", href: "#" },
-        { text: "Podcasts", href: getPermalink("podcast", "category") },
-        { text: "Vidéos", href: getPermalink("videos", "category") },
-        { text: "Formations", href: getPermalink("formations", "category") },
+        { text: "Podcasts", href: getPermalink("/podcasts") },
+        { text: "Vidéos", href: getPermalink("/videos") },
+        { text: "Formations", href: getPermalink("/formations/bootcamps-ateliers") },
       ],
     },
 
