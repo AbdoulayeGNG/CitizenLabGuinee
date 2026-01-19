@@ -20,7 +20,7 @@ const metadata = {
 const posts = await getPodcastPosts();
 
 
-const podcasts : Podcast[] = posts.map((post) => ({
+const podcasts : Podcast[] = posts.map((post: any) => ({
   id: post.id,
   slug : post.slug,
   title: post.title,
