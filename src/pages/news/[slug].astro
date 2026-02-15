@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 
 const articles = await getAllActualites();
+console.log("Articles récupérés:", articles);
 const article = articles.find((post: any) => post.slug === slug);
 
 if (!article) {
