@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+console.log("Post récupéré:", post);
 
 const podcast: Podcast = {
   id: post.id,

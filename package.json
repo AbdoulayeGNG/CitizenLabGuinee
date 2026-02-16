@@ -5,7 +5,7 @@
   "engines": {
     "node": ">=18.X"
   },
-  "description": "CitizenLab Sénégal - Plateforme de participation citoyenne",
+  "description": "CitizenLab Guinée - Plateforme de participation citoyenne",
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
