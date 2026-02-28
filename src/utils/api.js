@@ -200,7 +200,11 @@ export async function getNodeByURI(uri) {
     }
 
     const { data } = await response.json();
-    return data;
+    if (data?.nodeByUri?.content) {
+     data.nodeByUri.content = cleanYouTubeEmbeds(data.nodeByUri.content);
+}
+return data;
+
   } catch (error) {
     console.error(`Error fetching node by URI ${uri}:`, error.message);
     return null;
@@ -738,30 +742,16 @@ export async function getLatestActualites(limit = 3) {
   return data?.posts?.nodes ?? [];
 }
 // utils/api.js
-export function extractAudioUrl(postContent) {
-  if (!postContent) return "";
-  
-  console.log("🔍 Recherche d'audio dans le contenu...");
-  
-  // Chercher différentes balises audio possibles
-  const patterns = [
-    /<audio[\s\S]*?src="([^"]*)"[\s\S]*?<\/audio>/i,
-    /<source[\s\S]*?src="([^"]*)"[\s\S]*?>/i,
-    /<iframe[\s\S]*?src="([^"]*)"[\s\S]*?<\/iframe>/i,
-    /https?:\/\/[^\s"']+\.(mp3|wav|ogg|m4a)/i
-  ];
-  
-  for (const pattern of patterns) {
-    const match = postContent.match(pattern);
-    if (match) {
-      console.log("✅ Audio trouvé:", match[1] || match[0]);
-      return match[1] || match[0];
-    }
-  }
-  
-  console.log("❌ Aucun audio trouvé");
-  return "";
+export function extractAudioUrl(content) {
+  if (!content) return null;
+
+  const audioMatch = content.match(
+    /<iframe.*?src="(https?:\/\/[^"]+\.(mp3|wav|ogg))".*?><\/iframe>/
+  );
+
+  return audioMatch ? audioMatch[1] : null;
 }
+
 export async function getAllActualites() {
   const apiUrl = import.meta.env.PUBLIC_WORDPRESS_API_URL;
   const response = await fetch(apiUrl, {
@@ -826,3 +816,21 @@ export async function getAllCategories() {
   console.log("📚 Toutes les catégories:", data?.categories?.nodes);
   return data?.categories?.nodes ?? [];
 }
+
+export function cleanYouTubeEmbeds(content) {
+  if (!content) return content;
+
+  return content
+    .replace(
+      /https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)\?feature=oembed/g,
+      'https://www.youtube.com/embed/$1'
+    )
+    .replace(
+      /<iframe.*?youtube\.com\/embed\/.*?><\/iframe>/g,
+      (iframe) => {
+        return iframe.replace('?feature=oembed', '');
+      }
+    );
+}
+
+
