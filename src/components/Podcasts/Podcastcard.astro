@@ -17,51 +17,40 @@ const truncate = (text: string, numWords: number) => {
 };
 ---
 
-<article
-  class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group"
->
-  <div class="md:flex">
+<a href={`/podcasts/${podcast.slug}`} class="block h-full group">
+  <article
+    class="podcast-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col h-96"
+    data-category={podcast.category}
+  >
     <!-- Image -->
-    <div class="relative md:w-48 h-48 md:h-auto overflow-hidden flex-shrink-0">
+    <div class="relative flex-1 overflow-hidden">
       <img
         src={podcast.coverImage || microphone.src}
         alt={podcast.title}
-        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
       />
-      <div
-        class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
-      >
-      </div>
     </div>
 
-    <!-- Contenu -->
-    <div class="p-6 flex-1">
-      <div class="flex items-center gap-2 mb-3">
-        <span
-          class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full"
+    <!-- Titre -->
+    <div class="p-6 flex items-center justify-between bg-white">
+      <h3 class="text-lg font-bold text-green-800 group-hover:text-green-600 transition-colors line-clamp-2">
+        {podcast.title}
+      </h3>
+      <span class="inline-flex items-center justify-center w-10 h-10 bg-green-50 group-hover:bg-green-700 rounded-full transition-all duration-300 flex-shrink-0 ml-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-5 h-5 text-green-600 group-hover:text-white transition-colors"
         >
-          {podcast.category}
-        </span>
-        <span class="text-gray-400 text-sm">•</span>
-        <span class="text-gray-600 text-sm">{podcast.date}</span>
-      </div>
-      <a href={`/podcasts/${podcast.slug}`}>
-        <h3
-          class="text-2xl font-bold text-green-900 mb-2 group-hover:text-green-700 transition-colors"
-        >
-          {podcast.title}
-        </h3>
-      </a>
-
-      <p class="text-green-800 font-semibold text-sm mb-3">
-        {podcast.episode}
-      </p>
-
-      <p class="text-gray-600 mb-4 line-clamp-2">
-        {truncate(podcast.description, maxWords)}
-      </p>
-
-      <div set:html={podcast.audioHtml} />
+          <path d="M7 17L17 7" />
+          <path d="M7 7h10v10" />
+        </svg>
+      </span>
     </div>
-  </div>
-</article>
+  </article>
+</a>
